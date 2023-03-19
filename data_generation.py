@@ -72,6 +72,25 @@ def preprocess_image_input(input_image, factor):
   return enhanced_img
 
 
+def preprocess_image_input_prediction(input_image, factor=0):
+  factor_contrast = factor
+  factor_brightness = factor
+  #input_image = Image.fromarray((input_image * 255).astype(np.uint8)) # PIL.Image.fromarray(np.uint8(input_image))
+
+  enhancer_contrast = ImageEnhance.Contrast(input_image)
+  eq_contrast = enhancer_contrast.enhance(factor_contrast)
+
+  enhancer_brightness = ImageEnhance.Brightness(eq_contrast)
+  eq_brightness = enhancer_brightness.enhance(factor_brightness)
+
+  enhanced_img = np.array(eq_brightness).astype(np.float32)
+  #enhanced_img = np.resize(enhanced_img, new_shape)
+  #enhanced_img = np.expand_dims(enhanced_img, axis=0)
+  #enhanced_img = enhanced_img.unsqueeze_(0)
+  enhanced_img = torch.as_tensor(enhanced_img, dtype=torch.float32)
+  return enhanced_img
+
+
 def create_image(data, image_name, final_path):
   path = os.path.join(final_path, image_name)
   data.save(path)
