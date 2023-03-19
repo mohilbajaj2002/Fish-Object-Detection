@@ -41,7 +41,8 @@ scheduler_list = ['Step'] # 'Step', 'Multi-Step', 'Exponential'
 learning_rate_list = [0.0005] # 0.0005, 0.001, 0.0015 etc.
 
 # Model evaluation
-test_folder_path = 'validation_12'
+test_image_folder_path = 'validation_12'
+test_annotation_file_path = os.path.join(annotations_root_path, 'validation_processed_12.csv')
 evaluation_batch_size = 16
 eval_metric = 'map' # 'map', 'map_50', 'map_75'
 

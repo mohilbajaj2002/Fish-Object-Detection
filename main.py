@@ -53,8 +53,14 @@ for factor_list in config.factor_list_of_list:
     print(f'Performing data augmentation: {factor_list}...')
     df_train_processed, df_validation_processed = datagen.process_label_data(config.data_root_path, config.annotation_folder, config.train_folder, config.validation_folder, factor_list)
 
-    # Performing a quick test to check data validity
+    # Store processed files for evaluation (if required)
     factor_list_str = ''.join([str(i) for i in factor_list])
+    train_processed_filename = 'train_processed_' + factor_list_str + '.csv'
+    validation_processed_filename = 'validation_processed_' + factor_list_str + '.csv'
+    df_train_processed.to_csv(os.path.join(config.annotations_root_path, train_processed_filename), index=False)
+    df_validation_processed.to_csv(os.path.join(config.annotations_root_path, validation_processed_filename), index=False)
+
+    # Performing a quick test to check data validity
     new_train_folder = config.train_folder + f'_{factor_list_str}'
     new_validation_folder = config.validation_folder + f'_{factor_list_str}'
     tests.data_check(config.data_root_path, new_train_folder, df_train_processed)

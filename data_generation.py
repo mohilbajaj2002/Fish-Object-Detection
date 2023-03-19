@@ -210,3 +210,10 @@ def generate_dataloaders(base_path, new_train_folder, new_validation_folder, df_
     data_loader_test = torch.utils.data.DataLoader(dataset_test, batch_size=test_batch_size, shuffle=False, num_workers=4,
                                                    collate_fn=torch_utils.collate_fn)
     return data_loader, data_loader_test
+
+
+def generate_dataloader_for_validation(base_path, new_validation_folder, df_validation_processed, classes, eval_batch_size):
+    dataset_validation = FishDataset(base_path, new_validation_folder, df_validation_processed, classes, get_transform(train=False))
+    data_loader_validation = torch.utils.data.DataLoader(dataset_validation, batch_size=eval_batch_size, shuffle=False, num_workers=4,
+                                                   collate_fn=torch_utils.collate_fn)
+    return data_loader_validation
