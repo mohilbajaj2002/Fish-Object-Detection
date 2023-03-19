@@ -1,0 +1,10 @@
+numpy
+pandas
+Pillow
+opencv-python
+pycocotools  
+torch
+torchvision
+pytorch_lightning
+torchmetrics
+matplotlib
